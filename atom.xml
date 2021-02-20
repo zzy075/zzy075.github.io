@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Angels&amp;Demons</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2021-02-18T05:12:33.950Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>万物和你</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>BinarySearch(二分查找)</title>
+    <link href="http://example.com/2021/02/18/BinarySearch-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+    <id>http://example.com/2021/02/18/BinarySearch-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</id>
+    <published>2021-02-18T03:32:24.000Z</published>
+    <updated>2021-02-18T05:12:33.950Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-二分查找"><a href="#1-二分查找" class="headerlink" title="1. 二分查找"></a>1. 二分查找</h3><p>​       通过不断查找一组数据（前提要求有序）中间值的方法，从而定位到待查找的值的方法。</p><h3 id="2-查找过程"><a href="#2-查找过程" class="headerlink" title="2.查找过程"></a>2.查找过程</h3><p>​       比如一组数据 2 5 11 17 33 我们要查找5这个值</p><p>​        第一轮查找    2 5 <strong>11</strong> 17 33</p><p>​        第二轮查找    <strong>2</strong> 5 11 17 33</p><p>​        第三轮查找    2 <strong>5</strong> 11 17 33</p><a id="more"></a><h3 id="3-算法分析"><a href="#3-算法分析" class="headerlink" title="3.算法分析"></a>3.算法分析</h3><p>​       1.我们需要3个变量来标识数组中的头，尾，和中间值。分别用 lo,hi,mid来表示。</p><p>​       2.要不断的遍历数组元素，不断地缩小数组范围，缩小到最后的一个即为查找值。</p><p>​       3.通过对头和尾的下标修改，以来改变数组的范围，当mid比查找值大，说明查找值</p><p>​        在mid的左边，反之在右边。</p><p>​       4.当mid值等于查找值时，返回这个mid值。</p><h3 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4.代码实现"></a>4.代码实现</h3><p>​      </p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">binarySearch</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a[]=&#123;<span class="number">2</span>,<span class="number">5</span>,<span class="number">11</span>,<span class="number">17</span>,<span class="number">33</span>&#125;;     <span class="comment">//初始化一个数组（有序）</span></span><br><span class="line">        System.out.println(rank(<span class="number">2</span>,a));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">rank</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> a[])</span></span>&#123;   <span class="comment">//查找算法</span></span><br><span class="line">        <span class="keyword">int</span> lo = <span class="number">0</span>;                       <span class="comment">//头为数组第一个值</span></span><br><span class="line">        <span class="keyword">int</span> hi = a.length-<span class="number">1</span>;            <span class="comment">//尾为数组最后一个值</span></span><br><span class="line">        <span class="keyword">while</span>(lo&lt;=hi)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = lo+(hi-lo)/<span class="number">2</span>;         <span class="comment">//求当前范围的中间值</span></span><br><span class="line">            <span class="keyword">if</span>(a[mid]&lt;i)&#123;               </span><br><span class="line">                lo=mid+<span class="number">1</span>;                <span class="comment">//如果比查找值小 更新头为当前mid的下一个元素</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(a[mid]&gt;i)&#123;</span><br><span class="line">                hi=mid-<span class="number">1</span>;            <span class="comment">//如果比查找值大 更新尾为当前mid的前一个元素</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> mid;      <span class="comment">//mid值等于查找值 返回这个下标</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;   <span class="comment">//未查找到返回-1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;1-二分查找&quot;&gt;&lt;a href=&quot;#1-二分查找&quot; class=&quot;headerlink&quot; title=&quot;1. 二分查找&quot;&gt;&lt;/a&gt;1. 二分查找&lt;/h3&gt;&lt;p&gt;​       通过不断查找一组数据（前提要求有序）中间值的方法，从而定位到待查找的值的方法。&lt;/p&gt;
+&lt;h3 id=&quot;2-查找过程&quot;&gt;&lt;a href=&quot;#2-查找过程&quot; class=&quot;headerlink&quot; title=&quot;2.查找过程&quot;&gt;&lt;/a&gt;2.查找过程&lt;/h3&gt;&lt;p&gt;​       比如一组数据 2 5 11 17 33 我们要查找5这个值&lt;/p&gt;
+&lt;p&gt;​        第一轮查找    2 5 &lt;strong&gt;11&lt;/strong&gt; 17 33&lt;/p&gt;
+&lt;p&gt;​        第二轮查找    &lt;strong&gt;2&lt;/strong&gt; 5 11 17 33&lt;/p&gt;
+&lt;p&gt;​        第三轮查找    2 &lt;strong&gt;5&lt;/strong&gt; 11 17 33&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="http://example.com/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅入Java反射机制之基于接口的动态代理</title>
+    <link href="http://example.com/2020/10/03/%E6%B5%85%E5%85%A5Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%9F%BA%E4%BA%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"/>
+    <id>http://example.com/2020/10/03/%E6%B5%85%E5%85%A5Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%9F%BA%E4%BA%8E%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</id>
+    <published>2020-10-03T03:03:38.000Z</published>
+    <updated>2021-02-18T05:12:43.252Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="基于接口的动态代理"><a href="#基于接口的动态代理" class="headerlink" title="基于接口的动态代理"></a>基于接口的动态代理</h4><p><strong>今</strong> 天我们来讲解一下Java基于接口的动态代理（前提一定要实现其接口）</p><p>本质就是在不修改源码的情况下对原有的代码进行增强，以实现对原代码进行功能控制。<br><br><br></p><p><strong>接下来我们通过一个栗子来演示一下</strong></p><a id="more"></a><p>我现在文件夹一共有三个类 分别是Client，Producer，和IProducer </p><p><img src="cut1.png" alt="img"></p><p>这个栗子是想模拟一下客户对生产者方法进行调用，从而写一个代理来对生产者的方法进行增强</p><p>client类：客户类用于写增强方法（代理对象就在这个类）</p><p>producer类：生产者类是被代理的类</p><p>IProducer： 是一个接口，producer是它的实现，本文章的基于接口就是这个意思</p><p><br><br></p><p><strong>下面是Producer和IProducer的代码</strong></p><br><p><img src="cut2.png" alt="img"></p><p>Producer实现了IProducer的buy和sale方法</p><br><p><img src="cut3.png" alt="img"></p><p><br><br></p><p><strong>接下来就要进行代理了</strong></p><p>在代理之前再给大家介绍一下一个叫Proxy的类以及它的newProxyInstance方法</p><p>通过这个方法我们就可以获取到一个代理对象，返回值类型是Object，我们要用一个接口代理来接收</p><p><img src="cut4.png" alt="img"></p><p>这个方法有三个返回值<em>ClassLoaer，Class[]，InvocationHandler</em></p><p>ClassLoader：类加载器，这里传入需要被代理类的类加载器即可（固定）</p><p>Class[]:  字节码，同样传入被代理类的字节码 （固定）</p><p>好啦，我们在这里先介绍这两个，因为这两个参数的写法偏于固定，直接传入就可了，下面我们来介绍这个重头戏InvocationHandler</p><br><p><strong>InvocationHandler</strong></p><p>下面给出了到目前的写法</p><p><img src="cut5.png" alt="img"></p><br><p>在invoke方法里就要写我们想要增强的代码</p><p>比如我们想拦截一下是否为buy方法，是的话就输出拦截到buy方法，可以这样写</p><p><img src="cut6.png" alt="img"></p><p>这里要说的是 invoke方法返回值是Object,这里要调用增强方法的invoke方法，用一个代理对象IProducer接收即可</p><br><br><p>最后运行代理类的buy方法，发现控制台输出了“拦截到buy方法”，说明我们的代理成功了</p><p>如果想进一步验证的话可以调用一下sale方法，如果程序没有问题的话，是不会输出“拦截到buy方法”的</p><p><img src="cut7.png" alt="img"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;基于接口的动态代理&quot;&gt;&lt;a href=&quot;#基于接口的动态代理&quot; class=&quot;headerlink&quot; title=&quot;基于接口的动态代理&quot;&gt;&lt;/a&gt;基于接口的动态代理&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;今&lt;/strong&gt; 天我们来讲解一下Java基于接口的动态代理（前提一定要实现其接口）&lt;/p&gt;
+&lt;p&gt;本质就是在不修改源码的情况下对原有的代码进行增强，以实现对原代码进行功能控制。&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;接下来我们通过一个栗子来演示一下&lt;/strong&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="http://example.com/categories/Java/"/>
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一闪一闪的徐艺洋</title>
+    <link href="http://example.com/2020/10/02/%E4%B8%80%E9%97%AA%E4%B8%80%E9%97%AA%E7%9A%84%E5%BE%90%E8%89%BA%E6%B4%8B/"/>
+    <id>http://example.com/2020/10/02/%E4%B8%80%E9%97%AA%E4%B8%80%E9%97%AA%E7%9A%84%E5%BE%90%E8%89%BA%E6%B4%8B/</id>
+    <published>2020-10-02T10:02:35.000Z</published>
+    <updated>2021-02-18T05:13:12.507Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="走到哪里都放光芒"><a href="#走到哪里都放光芒" class="headerlink" title="走到哪里都放光芒"></a>走到哪里都放光芒</h1><h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1601644732255&di=f4d5af70d4f1aaee7eed9811f79c7322&imgtype=0&src=http://n.sinaimg.cn/sinakd20200511ac/164/w640h324/20200511/af4b-itmiwry9968277.jpg" alt="img"></h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;走到哪里都放光芒&quot;&gt;&lt;a href=&quot;#走到哪里都放光芒&quot; class=&quot;headerlink&quot; title=&quot;走到哪里都放光芒&quot;&gt;&lt;/a&gt;走到哪里都放光芒&lt;/h1&gt;&lt;h2 id=&quot;&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title=&quot;&quot;</summary>
+      
+    
+    
+    
+    <category term="综艺" scheme="http://example.com/categories/%E7%BB%BC%E8%89%BA/"/>
+    
+    
+    <category term="综艺" scheme="http://example.com/tags/%E7%BB%BC%E8%89%BA/"/>
+    
+  </entry>
+  
+</feed>
